@@ -1,0 +1,11 @@
+HTTrack3.49-2+htsswf+htsjava launched on Tue, 10 Nov 2026 11:25:21 at https://template.viserlab.com/hyiplab/demo/index.html +*.png +*.gif +*.jpg +*.jpeg +*.css +*.js -ad.doubleclick.net/* -mime:application/foobar
+(winhttrack -qwC2%Ps2u1%s%uN0%I0p3DaK0H0%kf2A25000%f#f -F "Mozilla/4.5 (compatible; HTTrack 3.0x; Windows 98)" -%F "<!-- Mirrored from %s%s by HTTrack Website Copier/3.x [XR&CO'2014], %s -->" -%l "en, *" https://template.viserlab.com/hyiplab/demo/index.html -O1 "C:\My Web Sites\meena6" +*.png +*.gif +*.jpg +*.jpeg +*.css +*.js -ad.doubleclick.net/* -mime:application/foobar )
+
+Information, Warnings and Errors reported for this mirror:
+note:	the hts-log.txt file, and hts-cache folder, may contain sensitive information,
+	such as username/password authentication for websites mirrored in this project
+	do not share these files/folders if you want these information to remain private
+
+
+HTTrack Website Copier/3.49-2 mirror complete in 49 seconds : 95 links scanned, 94 files written (9853832 bytes overall) [5606168 bytes received at 114411 bytes/sec], 7019811 bytes transferred using HTTP compression in 49 files, ratio 38%, 31.6 requests per connection
+(No errors, 0 warnings, 0 messages)
