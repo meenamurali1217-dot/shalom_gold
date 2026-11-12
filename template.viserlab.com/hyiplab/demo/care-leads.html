@@ -210,10 +210,13 @@
                 <li><a href="care-leads.html" class="active" style="color: #cca354; font-weight: 700;"><i class="las la-headset mr-1"></i> My Assigned Leads</a></li>
                 <li><a href="contact.html">Contact</a></li>
               </ul>
-              <div class="nav-right">
-                <span class="badge" style="background: rgba(40,167,69,0.18); border: 1px solid #28a745; color: #28a745; padding: 7px 14px; border-radius: 20px; font-size: 12px;">
+              <div class="nav-right d-flex align-items-center">
+                <span class="badge mr-2" style="background: rgba(40,167,69,0.18); border: 1px solid #28a745; color: #28a745; padding: 7px 14px; border-radius: 20px; font-size: 12px;" id="careBadgeText">
                   <i class="las la-headset mr-1"></i> Care Desk
                 </span>
+                <button type="button" class="btn btn-sm" id="btnCareLogout" style="background: transparent; border: 1px solid rgba(255,255,255,0.25); color: #fff; border-radius: 20px; font-size: 12px; padding: 5px 12px; display: none;">
+                  <i class="las la-sign-out-alt mr-1"></i> Sign Out
+                </button>
               </div>
             </div>
           </nav>
@@ -256,7 +259,7 @@
               <h4 class="text-white mb-0" id="currentAgentName" style="font-family: 'Playfair Display', serif;">Priya Sharma (CC-101)</h4>
             </div>
           </div>
-          <div class="d-flex align-items-center gap-2">
+          <div class="d-flex align-items-center gap-2" id="agentSwitcherWrap">
             <label class="text-white-50 f-size-12 mb-0 mr-2">Switch Representative:</label>
             <select id="agentSwitcher" class="form-control d-inline-block w-auto" style="background: #1c1d22; border-color: #cca354; color: #fff; font-size: 13px;">
               <option value="CC-101" selected>Priya Sharma (CC-101)</option>
@@ -419,6 +422,52 @@
       </div>
     </div>
 
+  <!-- Customer Care Authentication Modal -->
+  <div class="modal fade" id="careAuthModal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content modal-dark-content" style="border: 2px solid #28a745; box-shadow: 0 0 35px rgba(40,167,69,0.25);">
+        <div class="modal-header modal-dark-header text-center d-block">
+          <div class="text-center mb-2">
+            <img src="assets/images/logo.png" alt="Shalom Gold" style="max-height: 48px;">
+          </div>
+          <h4 class="modal-title font-weight-bold text-success"><i class="las la-headset mr-1"></i> Customer Care Sign In</h4>
+          <p class="text-white-50 f-size-13 mb-0 mt-1">Sign in with your staff credentials to access your assigned customer leads.</p>
+        </div>
+        <div class="modal-body p-4">
+          <div id="careLoginError" class="alert alert-danger d-none f-size-13" role="alert"></div>
+          <form id="careLoginForm">
+            <div class="form-group">
+              <label class="text-white f-size-13 font-weight-bold">Staff Email or Employee ID</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text bg-dark border-secondary text-white-50"><i class="las la-user"></i></span>
+                </div>
+                <input type="text" id="careEmailInput" class="form-control" placeholder="priya.sharma@shalomgold.com or CC-101" required autocomplete="username">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="text-white f-size-13 font-weight-bold">Password</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text bg-dark border-secondary text-white-50"><i class="las la-lock"></i></span>
+                </div>
+                <input type="password" id="carePasswordInput" class="form-control" placeholder="Enter password" required autocomplete="current-password">
+              </div>
+            </div>
+            <div class="mt-4">
+              <button type="submit" id="careLoginSubmitBtn" class="cmn-btn btn-block w-100 py-2">
+                <i class="las la-sign-in-alt mr-1"></i> Sign In to Care Queue
+              </button>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer modal-dark-footer text-center d-block">
+          <p class="text-white-50 f-size-12 mb-0"><i class="las la-shield-alt mr-1" style="color: #28a745;"></i> Authorized Shalom Gold Staff Desk · Activity Logged</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
     <!-- Footer -->
     <footer class="footer bg_img" data-background="assets/images/bg/bg-7.jpg">
       <div class="footer__bottom">
@@ -453,9 +502,17 @@
       };
 
       let activeAgentId = 'CC-101';
+      let currentStaffUser = null;
 
       function getApiBase() {
-        return window.SHALOM_CONFIG ? window.SHALOM_CONFIG.API_BASE : (window.location.port === '5000' ? '' : 'http://127.0.0.1:5000');
+        return window.SHALOM_CONFIG ? window.SHALOM_CONFIG.API_BASE : '';
+      }
+
+      function escapeHtml(text) {
+        if (!text) return '';
+        return String(text).replace(/[&<>"']/g, function(m) {
+          return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[m];
+        });
       }
 
       function getStatusBadge(status) {
@@ -469,16 +526,94 @@
           const d = new Date(isoStr);
           return d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
         } catch(e) {
-          return isoStr.slice(0, 10);
+          return String(isoStr).slice(0, 10);
         }
       }
 
-      function escapeHtml(text) {
-        if (!text) return '';
-        return text.replace(/[&<>"']/g, function(m) {
-          return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[m];
-        });
+      // 1. Check Authentication on Load
+      async function checkAuth() {
+        try {
+          const res = await fetch(getApiBase() + '/api/auth/me');
+          const data = await res.json();
+          if (data.authenticated && data.employee) {
+            currentStaffUser = data.employee;
+            activeAgentId = data.employee.id;
+
+            $('#currentAgentName').text(`${data.employee.name} (${data.employee.id})`);
+            $('#careBadgeText').html(`<i class="las la-user-check mr-1"></i> ${escapeHtml(data.employee.name)}`);
+            $('#btnCareLogout').show();
+
+            // Customer care agents are locked to their own queue; Admin can switch
+            if (data.employee.role === 'customer_care') {
+              $('#agentSwitcherWrap').hide();
+            } else {
+              $('#agentSwitcherWrap').show();
+              $('#agentSwitcher').val(activeAgentId);
+            }
+
+            $('#careAuthModal').modal('hide');
+            loadAgentLeads();
+          } else {
+            $('#btnCareLogout').hide();
+            $('#careAuthModal').modal('show');
+          }
+        } catch(e) {
+          $('#careAuthModal').modal('show');
+        }
       }
+
+      // Handle Care Staff Login Submit
+      $('#careLoginForm').on('submit', async function (e) {
+        e.preventDefault();
+        const email = $('#careEmailInput').val().trim();
+        const password = $('#carePasswordInput').val();
+        const errBox = $('#careLoginError');
+        const submitBtn = $('#careLoginSubmitBtn');
+
+        errBox.addClass('d-none').text('');
+        submitBtn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm mr-1"></span> Signing In...');
+
+        try {
+          const res = await fetch(getApiBase() + '/api/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
+          });
+          const data = await res.json();
+          if (data.success && data.employee) {
+            currentStaffUser = data.employee;
+            activeAgentId = data.employee.id;
+
+            $('#currentAgentName').text(`${data.employee.name} (${data.employee.id})`);
+            $('#careBadgeText').html(`<i class="las la-user-check mr-1"></i> ${escapeHtml(data.employee.name)}`);
+            $('#btnCareLogout').show();
+
+            if (data.employee.role === 'customer_care') {
+              $('#agentSwitcherWrap').hide();
+            } else {
+              $('#agentSwitcherWrap').show();
+              $('#agentSwitcher').val(activeAgentId);
+            }
+
+            $('#careAuthModal').modal('hide');
+            loadAgentLeads();
+          } else {
+            errBox.removeClass('d-none').text(data.error || 'Invalid credentials. Please verify your email/ID and password.');
+          }
+        } catch(e) {
+          errBox.removeClass('d-none').text('Network error connecting to backend API.');
+        } finally {
+          submitBtn.prop('disabled', false).html('<i class="las la-sign-in-alt mr-1"></i> Sign In to Care Queue');
+        }
+      });
+
+      // Handle Sign Out
+      $('#btnCareLogout').on('click', async function () {
+        try {
+          await fetch(getApiBase() + '/api/auth/logout', { method: 'POST' });
+        } catch(e) {}
+        window.location.reload();
+      });
 
       // Load leads assigned to active agent
       async function loadAgentLeads() {
@@ -489,13 +624,19 @@
 
         try {
           const res = await fetch(url);
+          if (res.status === 401) {
+            $('#careAuthModal').modal('show');
+            return;
+          }
           const data = await res.json();
           if (data.success) {
             renderMetrics(data.metrics);
             renderTable(data.leads);
+          } else {
+            $('#careLeadsTableBody').html(`<tr><td colspan="8" class="text-center py-4 text-danger"><i class="las la-exclamation-triangle mr-1"></i> ${data.error || 'Failed to load assigned leads.'}</td></tr>`);
           }
         } catch (e) {
-          $('#careLeadsTableBody').html(`<tr><td colspan="8" class="text-center py-4 text-danger"><i class="las la-exclamation-triangle mr-1"></i> Failed to connect to server. Ensure port 5000 is running.</td></tr>`);
+          $('#careLeadsTableBody').html(`<tr><td colspan="8" class="text-center py-4 text-danger"><i class="las la-exclamation-triangle mr-1"></i> Failed to connect to server.</td></tr>`);
         }
       }
 
@@ -553,7 +694,7 @@
         tbody.html(html);
       }
 
-      // Representative Switcher
+      // Representative Switcher (for Admin role)
       $('#agentSwitcher').on('change', function () {
         activeAgentId = $(this).val();
         const agent = AGENTS[activeAgentId] || { name: activeAgentId };
@@ -592,7 +733,6 @@
           return;
         }
 
-        const agent = AGENTS[activeAgentId] || { name: 'Customer Care Executive' };
         const btn = $(this);
         btn.prop('disabled', true).text('Saving...');
 
@@ -604,9 +744,7 @@
               lead_id: leadId,
               lead_status: status,
               follow_up_date: followUp || null,
-              notes: notes,
-              actor_name: `${agent.name} (${activeAgentId})`,
-              actor_role: 'Customer Care'
+              notes: notes
             })
           });
           const data = await res.json();
@@ -634,7 +772,7 @@
           const res = await fetch(`${getApiBase()}/api/leads/history?lead_id=${leadId}`);
           const data = await res.json();
           if (data.success) {
-            if (data.history.length === 0) {
+            if (!data.history || data.history.length === 0) {
               container.html('<p class="text-white-50">No history records logged yet.</p>');
               return;
             }
@@ -652,6 +790,8 @@
               `;
             });
             container.html(html);
+          } else {
+            container.html(`<p class="text-danger">${data.error || 'Failed to load history.'}</p>`);
           }
         } catch(e) {
           container.html('<p class="text-danger">Failed to load history.</p>');
@@ -671,8 +811,8 @@
         };
       }
 
-      // Initialize
-      loadAgentLeads();
+      // Run Auth check on start
+      checkAuth();
 
     })(jQuery);
   </script>

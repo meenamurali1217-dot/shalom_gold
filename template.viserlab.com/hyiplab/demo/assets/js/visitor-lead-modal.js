@@ -115,12 +115,12 @@
     </div>
     `;
 
-    // Ensure API configuration is available
+    // Ensure API configuration is available (relative same-origin)
     function getApiBase() {
         if (window.SHALOM_CONFIG && window.SHALOM_CONFIG.API_BASE !== undefined) {
             return window.SHALOM_CONFIG.API_BASE;
         }
-        return window.location.port === '5000' ? '' : 'http://127.0.0.1:5000';
+        return '';
     }
 
     // Verify submission status on backend

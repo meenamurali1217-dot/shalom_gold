@@ -1,26 +1,29 @@
 /**
  * Shalom Gold - API Configuration Helper
- * Resolves API Base URL automatically across local environments.
+ * Configures all frontend API requests to use same-origin relative endpoints.
+ * Never connects to localhost or hardcoded ports in production.
  */
 window.SHALOM_CONFIG = (function() {
     'use strict';
     
-    // If hosted on backend server port 5000, use relative paths
-    const isPort5000 = window.location.port === '5000';
-    const API_BASE = isPort5000 ? '' : 'http://127.0.0.1:5000';
+    // Always use same-origin relative paths on Vercel and local environments
+    const API_BASE = '';
 
     return {
         API_BASE: API_BASE,
         endpoints: {
-            registerLead: API_BASE + '/api/leads/register',
-            verifyStatus: API_BASE + '/api/leads/verify-status',
-            adminLeads: API_BASE + '/api/admin/leads',
-            assignLead: API_BASE + '/api/admin/leads/assign',
-            careLeads: API_BASE + '/api/customer-care/leads',
-            updateCareLead: API_BASE + '/api/customer-care/leads/update',
-            leadHistory: API_BASE + '/api/leads/history',
-            exportLeads: API_BASE + '/api/admin/leads/export',
-            employees: API_BASE + '/api/employees'
+            registerLead: '/api/leads/register',
+            verifyStatus: '/api/leads/verify-status',
+            adminLeads: '/api/admin/leads',
+            assignLead: '/api/admin/leads/assign',
+            careLeads: '/api/customer-care/leads',
+            updateCareLead: '/api/customer-care/leads/update',
+            leadHistory: '/api/leads/history',
+            exportLeads: '/api/admin/leads/export',
+            employees: '/api/employees',
+            login: '/api/auth/login',
+            logout: '/api/auth/logout',
+            me: '/api/auth/me'
         }
     };
 })();

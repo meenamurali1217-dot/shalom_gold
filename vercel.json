@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/assets/(.*)", "destination": "/template.viserlab.com/hyiplab/demo/assets/$1" },
+    { "source": "/", "destination": "/template.viserlab.com/hyiplab/demo/index.html" },
+    { "source": "/admin", "destination": "/template.viserlab.com/hyiplab/demo/admin-leads.html" },
+    { "source": "/admin-leads", "destination": "/template.viserlab.com/hyiplab/demo/admin-leads.html" },
+    { "source": "/care", "destination": "/template.viserlab.com/hyiplab/demo/care-leads.html" },
+    { "source": "/care-leads", "destination": "/template.viserlab.com/hyiplab/demo/care-leads.html" },
+    { "source": "/catalog", "destination": "/template.viserlab.com/hyiplab/demo/catalog.html" },
+    { "source": "/login", "destination": "/template.viserlab.com/hyiplab/demo/login.html" },
+    { "source": "/dashboard", "destination": "/template.viserlab.com/hyiplab/demo/dashboard.html" },
+    { "source": "/plan", "destination": "/template.viserlab.com/hyiplab/demo/plan.html" },
+    { "source": "/about", "destination": "/template.viserlab.com/hyiplab/demo/about.html" },
+    { "source": "/contact", "destination": "/template.viserlab.com/hyiplab/demo/contact.html" },
+    { "source": "/blog", "destination": "/template.viserlab.com/hyiplab/demo/blog.html" }
+  ]
+}
