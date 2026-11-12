@@ -3,6 +3,8 @@
   "cleanUrls": true,
   "rewrites": [
     { "source": "/assets/(.*)", "destination": "/template.viserlab.com/hyiplab/demo/assets/$1" },
+    { "source": "/api/admin/leads/assign", "destination": "/api/admin/leads?action=assign" },
+    { "source": "/api/admin/leads/export", "destination": "/api/admin/leads?action=export" },
     { "source": "/", "destination": "/template.viserlab.com/hyiplab/demo/index.html" },
     { "source": "/admin", "destination": "/template.viserlab.com/hyiplab/demo/admin-leads.html" },
     { "source": "/admin-leads", "destination": "/template.viserlab.com/hyiplab/demo/admin-leads.html" },

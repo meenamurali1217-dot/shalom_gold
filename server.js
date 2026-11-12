@@ -24,9 +24,9 @@ const API_ROUTES = {
     '/api/auth/logout': require('./api/auth/logout'),
     '/api/auth/me': require('./api/auth/me'),
     '/api/employees': require('./api/employees'),
-    '/api/admin/leads/assign': require('./api/admin/leads/assign'),
-    '/api/admin/leads/export': require('./api/admin/leads/export'),
-    '/api/admin/leads': require('./api/admin/leads/index'),
+    '/api/admin/leads/assign': require('./api/admin/leads'),
+    '/api/admin/leads/export': require('./api/admin/leads'),
+    '/api/admin/leads': require('./api/admin/leads'),
     '/api/customer-care/leads/update': require('./api/customer-care/leads/update'),
     '/api/customer-care/leads': require('./api/customer-care/leads/index'),
     '/api/admin/migrate': require('./api/admin/migrate')
