@@ -52,18 +52,21 @@ const MIME_TYPES = {
 
 // Clean Route Rewrites (mirroring vercel.json)
 const REWRITES = {
-    '/': '/template.viserlab.com/hyiplab/demo/index.html',
-    '/admin': '/template.viserlab.com/hyiplab/demo/admin-leads.html',
-    '/admin-leads': '/template.viserlab.com/hyiplab/demo/admin-leads.html',
-    '/care': '/template.viserlab.com/hyiplab/demo/care-leads.html',
-    '/care-leads': '/template.viserlab.com/hyiplab/demo/care-leads.html',
-    '/catalog': '/template.viserlab.com/hyiplab/demo/catalog.html',
-    '/login': '/template.viserlab.com/hyiplab/demo/login.html',
-    '/dashboard': '/template.viserlab.com/hyiplab/demo/dashboard.html',
-    '/plan': '/template.viserlab.com/hyiplab/demo/plan.html',
-    '/about': '/template.viserlab.com/hyiplab/demo/about.html',
-    '/contact': '/template.viserlab.com/hyiplab/demo/contact.html',
-    '/blog': '/template.viserlab.com/hyiplab/demo/blog.html'
+    '/': '/index.html',
+    '/admin': '/admin-leads.html',
+    '/admin-leads': '/admin-leads.html',
+    '/care': '/care-leads.html',
+    '/care-leads': '/care-leads.html',
+    '/catalog': '/catalog.html',
+    '/login': '/login.html',
+    '/dashboard': '/dashboard.html',
+    '/plan': '/plan.html',
+    '/about': '/about.html',
+    '/contact': '/contact.html',
+    '/blog': '/blog.html',
+    '/registration': '/registration.html',
+    '/product-details': '/product-details.html',
+    '/product-single': '/product-single.html'
 };
 
 const server = http.createServer(async (req, res) => {
@@ -101,9 +104,13 @@ const server = http.createServer(async (req, res) => {
         }
     }
 
-    // 2. Apply URL Rewrites
+    // 2. Apply URL Rewrites & Normalization
     if (REWRITES[pathname]) {
         pathname = REWRITES[pathname];
+    } else if (pathname.startsWith('/template.viserlab.com/hyiplab/demo/assets/')) {
+        pathname = pathname.replace('/template.viserlab.com/hyiplab/demo/assets/', '/assets/');
+    } else if (pathname.startsWith('/template.viserlab.com/hyiplab/demo/')) {
+        pathname = pathname.replace('/template.viserlab.com/hyiplab/demo/', '/');
     }
 
     // 3. Static File Serving
@@ -111,12 +118,17 @@ const server = http.createServer(async (req, res) => {
     let filePath = path.join(ROOT_DIR, safePath);
 
     if (!fs.existsSync(filePath) || fs.statSync(filePath).isDirectory()) {
-        const alternatePath = path.join(ROOT_DIR, 'template.viserlab.com', 'hyiplab', 'demo', safePath);
-        if (fs.existsSync(alternatePath) && !fs.statSync(alternatePath).isDirectory()) {
-            filePath = alternatePath;
+        const htmlPath = filePath + '.html';
+        if (fs.existsSync(htmlPath) && fs.statSync(htmlPath).isFile()) {
+            filePath = htmlPath;
         } else {
-            res.writeHead(404, { 'Content-Type': 'text/plain; charset=UTF-8' });
-            return res.end('404 Not Found: ' + pathname);
+            const alternatePath = path.join(ROOT_DIR, 'template.viserlab.com', 'hyiplab', 'demo', safePath);
+            if (fs.existsSync(alternatePath) && !fs.statSync(alternatePath).isDirectory()) {
+                filePath = alternatePath;
+            } else {
+                res.writeHead(404, { 'Content-Type': 'text/plain; charset=UTF-8' });
+                return res.end('404 Not Found: ' + pathname);
+            }
         }
     }
 

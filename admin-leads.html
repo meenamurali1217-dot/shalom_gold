@@ -1,0 +1,817 @@
+<!-- meta tags and other links -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Website Leads — Shalom Gold</title>
+  <meta name="description" content="Authorized Shalom Gold Lead Management Dashboard for tracking, filtering, assigning, and converting website visitors.">
+  <link rel="icon" type="image/png" href="assets/images/favicon.png" sizes="16x16">
+  <!-- bootstrap 4  -->
+  <link rel="stylesheet" href="assets/css/vendor/bootstrap.min.css">
+  <!-- fontawesome 5  -->
+  <link rel="stylesheet" href="assets/css/all.min.css">
+  <!-- line-awesome webfont -->
+  <link rel="stylesheet" href="assets/css/line-awesome.min.css">
+  <link rel="stylesheet" href="assets/css/vendor/animate.min.css">
+  <link rel="stylesheet" href="assets/css/vendor/dots.css">
+  <!-- main css -->
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/gold-ticker.css">
+  <style>
+    .lead-status-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 11.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .status-new { background: rgba(0, 123, 255, 0.18); color: #4da3ff; border: 1px solid rgba(0, 123, 255, 0.4); }
+    .status-assigned { background: rgba(255, 193, 7, 0.18); color: #ffc107; border: 1px solid rgba(255, 193, 7, 0.4); }
+    .status-contacted { background: rgba(23, 162, 184, 0.18); color: #17a2b8; border: 1px solid rgba(23, 162, 184, 0.4); }
+    .status-interested { background: rgba(40, 167, 69, 0.18); color: #28a745; border: 1px solid rgba(40, 167, 69, 0.4); }
+    .status-follow-up-required { background: rgba(253, 126, 20, 0.18); color: #fd7e14; border: 1px solid rgba(253, 126, 20, 0.4); }
+    .status-not-interested { background: rgba(108, 117, 125, 0.2); color: #adb5bd; border: 1px solid rgba(108, 117, 125, 0.4); }
+    .status-converted { background: rgba(204, 163, 84, 0.25); color: #DFBA73; border: 1px solid #cca354; }
+
+    .admin-filter-card {
+      background: #15161a;
+      border: 1px solid rgba(204, 163, 84, 0.25);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 30px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+    .admin-filter-card .form-control {
+      background: #1c1d22;
+      border: 1px solid rgba(204, 163, 84, 0.3);
+      color: #ffffff;
+      border-radius: 8px;
+      height: 42px;
+      font-size: 13.5px;
+    }
+    .admin-filter-card .form-control:focus {
+      border-color: #cca354;
+      box-shadow: 0 0 10px rgba(204, 163, 84, 0.3);
+      background: #22242c;
+    }
+    .admin-lead-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+    }
+    .admin-lead-table thead th {
+      background: #1c1d22;
+      color: #cca354;
+      font-weight: 700;
+      font-size: 12.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 14px 16px;
+      border-top: 1px solid rgba(204, 163, 84, 0.2);
+      border-bottom: 1px solid rgba(204, 163, 84, 0.2);
+    }
+    .admin-lead-table tbody td {
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+      vertical-align: middle;
+      font-size: 13.5px;
+      color: rgba(255, 255, 255, 0.88);
+    }
+    .admin-lead-table tbody tr:hover {
+      background: rgba(204, 163, 84, 0.05);
+    }
+    .lead-action-btn {
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      border: 1px solid transparent;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    .btn-assign {
+      background: rgba(204, 163, 84, 0.15);
+      border-color: #cca354;
+      color: #DFBA73;
+    }
+    .btn-assign:hover {
+      background: #cca354;
+      color: #101113;
+    }
+    .btn-history {
+      background: #1c1d22;
+      border-color: rgba(255, 255, 255, 0.2);
+      color: rgba(255, 255, 255, 0.8);
+    }
+    .btn-history:hover {
+      border-color: #cca354;
+      color: #cca354;
+    }
+    .modal-dark-content {
+      background: #15161a;
+      border: 2px solid #cca354;
+      border-radius: 16px;
+      color: #ffffff;
+    }
+    .modal-dark-header {
+      border-bottom: 1px solid rgba(204, 163, 84, 0.25);
+      padding: 16px 22px;
+    }
+    .modal-dark-footer {
+      border-top: 1px solid rgba(204, 163, 84, 0.2);
+      padding: 14px 22px;
+    }
+    .timeline-item {
+      padding-left: 20px;
+      position: relative;
+      margin-bottom: 16px;
+      border-left: 2px solid #cca354;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -6px;
+      top: 4px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #cca354;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- scroll-to-top start -->
+  <div class="scroll-to-top">
+    <span class="scroll-icon">
+      <i class="fa fa-rocket" aria-hidden="true"></i>
+    </span>
+  </div>
+  <!-- scroll-to-top end -->
+
+  <div class="full-wh">
+    <!-- STAR ANIMATION -->
+    <div class="bg-animation">
+      <div id='stars'></div>
+      <div id='stars2'></div>
+      <div id='stars3'></div>
+      <div id='stars4'></div>
+    </div>
+  </div>
+
+  <div class="page-wrapper">
+    <!-- header-section start  -->
+    <header class="header">
+      <!-- Automatic Live Gold Price Ticker Start (IBJA Benchmark) -->
+      <div id="shalom-live-ticker-container" class="shalom-live-ticker-container" role="region" aria-label="IBJA National Gold Price Ticker">
+        <div class="shalom-live-ticker-bar">
+          <div class="ticker-source-badge" title="Official India National IBJA Benchmark Gold Rate">
+            <span class="live-dot" aria-hidden="true"></span>
+            <span class="ticker-source-title">INDIA – NATIONAL IBJA GOLD BENCHMARK</span>
+            <span class="ticker-national-pill">NATIONAL RATE</span>
+          </div>
+          <div class="ticker-viewport" id="ticker-viewport">
+            <div class="ticker-track" id="ticker-track">
+              <div class="ticker-item">
+                <span class="ticker-pill-gold">IBJA PM Closing Benchmark</span>
+                <span class="ticker-label text-white-50 font-monospace">06/11/2026 • 04:30 PM IST</span>
+              </div>
+              <div class="ticker-item"><span class="ticker-label">24K Gold (999):</span><span class="ticker-val">₹14,145.20/g</span></div>
+              <div class="ticker-item"><span class="ticker-label">22K Gold (916):</span><span class="ticker-val">₹12,957.00/g</span></div>
+              <div class="ticker-item"><span class="ticker-label">Silver (999):</span><span class="ticker-val">₹182.87/g</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="header__bottom">
+        <div class="container">
+          <nav class="navbar navbar-expand-xl p-0 align-items-center">
+            <a class="site-logo site-title" href="index.html"><img src="assets/images/logo.png" alt="Shalom Gold"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="menu-toggle"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav main-menu m-auto">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="plan.html">Savings Plans</a></li>
+              <li> <a href="catalog.html">Catalog</a></li>
+                <li><a href="dashboard.html">Passbook</a></li>
+                <li><a href="admin-leads.html" class="active" style="color: #cca354; font-weight: 700;"><i class="las la-user-tag mr-1"></i> Website Leads</a></li>
+                <li><a href="care-leads.html"><i class="las la-headset mr-1"></i> Customer Care</a></li>
+                <li><a href="contact.html">Contact</a></li>
+              </ul>
+              <div class="nav-right d-flex align-items-center">
+                <span class="badge mr-2" style="background: rgba(204,163,84,0.18); border: 1px solid #cca354; color: #DFBA73; padding: 7px 14px; border-radius: 20px; font-size: 12px;" id="adminBadgeText">
+                  <i class="las la-shield-alt mr-1"></i> Admin Portal
+                </span>
+                <button type="button" class="btn btn-sm" id="btnAdminLogout" style="background: transparent; border: 1px solid rgba(255,255,255,0.25); color: #fff; border-radius: 20px; font-size: 12px; padding: 5px 12px; display: none;">
+                  <i class="las la-sign-out-alt mr-1"></i> Sign Out
+                </button>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- Inner Hero Start -->
+    <section class="inner-hero bg_img" data-background="assets/images/bg/bg-1.jpg">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-8">
+            <h2 class="page-title">Website Leads CRM</h2>
+            <ul class="page-breadcrumb">
+              <li><a href="index.html">Home</a></li>
+              <li><a href="dashboard.html">Dashboard</a></li>
+              <li>Website Leads</li>
+            </ul>
+          </div>
+          <div class="col-lg-4 text-lg-right mt-3 mt-lg-0">
+            <button id="exportCsvBtn" class="cmn-btn" style="padding: 10px 22px; font-size: 13.5px; font-weight: 700;">
+              <i class="las la-file-excel mr-1"></i> Export Leads (CSV)
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Admin Leads Section Start -->
+    <div class="pt-80 pb-120">
+      <div class="container">
+        <!-- KPI Metrics Row -->
+        <div class="row mb-none-30">
+          <div class="col-xl-2 col-lg-4 col-sm-6 mb-30">
+            <div class="d-widget" style="padding: 20px; background: #15161a; border: 1px solid rgba(204,163,84,0.25); border-radius: 12px;">
+              <span class="caption text-white-50" style="font-size: 12px; font-weight: 600;">TOTAL LEADS</span>
+              <h3 class="currency-amount mb-0 mt-1" id="metricTotal" style="color: #ffffff; font-size: 26px;">0</h3>
+            </div>
+          </div>
+          <div class="col-xl-2 col-lg-4 col-sm-6 mb-30">
+            <div class="d-widget" style="padding: 20px; background: #15161a; border: 1px solid rgba(0,123,255,0.3); border-radius: 12px;">
+              <span class="caption text-white-50" style="font-size: 12px; font-weight: 600;">NEW LEADS</span>
+              <h3 class="currency-amount mb-0 mt-1 text-primary" id="metricNew" style="font-size: 26px;">0</h3>
+            </div>
+          </div>
+          <div class="col-xl-2 col-lg-4 col-sm-6 mb-30">
+            <div class="d-widget" style="padding: 20px; background: #15161a; border: 1px solid rgba(23,162,184,0.3); border-radius: 12px;">
+              <span class="caption text-white-50" style="font-size: 12px; font-weight: 600;">CONTACTED</span>
+              <h3 class="currency-amount mb-0 mt-1 text-info" id="metricContacted" style="font-size: 26px;">0</h3>
+            </div>
+          </div>
+          <div class="col-xl-2 col-lg-4 col-sm-6 mb-30">
+            <div class="d-widget" style="padding: 20px; background: #15161a; border: 1px solid rgba(40,167,69,0.3); border-radius: 12px;">
+              <span class="caption text-white-50" style="font-size: 12px; font-weight: 600;">INTERESTED</span>
+              <h3 class="currency-amount mb-0 mt-1 text-success" id="metricInterested" style="font-size: 26px;">0</h3>
+            </div>
+          </div>
+          <div class="col-xl-2 col-lg-4 col-sm-6 mb-30">
+            <div class="d-widget" style="padding: 20px; background: #15161a; border: 1px solid rgba(253,126,20,0.3); border-radius: 12px;">
+              <span class="caption text-white-50" style="font-size: 12px; font-weight: 600;">FOLLOW-UP DUE</span>
+              <h3 class="currency-amount mb-0 mt-1 text-warning" id="metricFollowUp" style="font-size: 26px;">0</h3>
+            </div>
+          </div>
+          <div class="col-xl-2 col-lg-4 col-sm-6 mb-30">
+            <div class="d-widget" style="padding: 20px; background: #15161a; border: 1px solid rgba(204,163,84,0.4); border-radius: 12px;">
+              <span class="caption text-white-50" style="font-size: 12px; font-weight: 600;">CONVERTED</span>
+              <h3 class="currency-amount mb-0 mt-1" id="metricConverted" style="color: #DFBA73; font-size: 26px;">0</h3>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter & Search Toolbar -->
+        <div class="admin-filter-card mt-4">
+          <div class="row align-items-center">
+            <div class="col-lg-3 col-md-6 mb-3 mb-lg-0">
+              <label class="text-white-50 f-size-12 mb-1">Search Lead</label>
+              <div class="position-relative">
+                <input type="text" id="searchInput" class="form-control" placeholder="Search name or mobile...">
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-6 mb-3 mb-lg-0">
+              <label class="text-white-50 f-size-12 mb-1">Status Filter</label>
+              <select id="statusFilter" class="form-control">
+                <option value="All">All Statuses</option>
+                <option value="New">New</option>
+                <option value="Assigned">Assigned</option>
+                <option value="Contacted">Contacted</option>
+                <option value="Interested">Interested</option>
+                <option value="Follow-up Required">Follow-up Required</option>
+                <option value="Not Interested">Not Interested</option>
+                <option value="Converted">Converted</option>
+              </select>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-3 mb-lg-0">
+              <label class="text-white-50 f-size-12 mb-1">Assigned Agent</label>
+              <select id="agentFilter" class="form-control">
+                <option value="All">All Agents</option>
+                <option value="Unassigned">Unassigned Only</option>
+              </select>
+            </div>
+            <div class="col-lg-2 col-md-3 mb-3 mb-lg-0">
+              <label class="text-white-50 f-size-12 mb-1">From Date</label>
+              <input type="date" id="fromDateFilter" class="form-control">
+            </div>
+            <div class="col-lg-2 col-md-3">
+              <label class="text-white-50 f-size-12 mb-1">&nbsp;</label>
+              <button id="resetFiltersBtn" class="btn btn-outline-secondary w-100" style="height: 42px; font-size: 13px;">
+                <i class="las la-undo mr-1"></i> Reset
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Leads Table -->
+        <div class="table-responsive--md" style="background: #15161a; border: 1px solid rgba(204,163,84,0.25); border-radius: 14px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+          <table class="admin-lead-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Visitor Name</th>
+                <th>Mobile Number</th>
+                <th>Source</th>
+                <th>Registration Date</th>
+                <th>Consent Status</th>
+                <th>Status</th>
+                <th>Assigned Agent</th>
+                <th class="text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="leadsTableBody">
+              <tr>
+                <td colspan="9" class="text-center py-5">
+                  <div class="spinner-border text-warning" role="status"></div>
+                  <p class="text-white-50 mt-2">Loading website leads...</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal: Assign Lead -->
+    <div class="modal fade" id="assignLeadModal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content modal-dark-content">
+          <div class="modal-header modal-dark-header">
+            <h5 class="modal-title" style="color: #cca354;"><i class="las la-user-check mr-1"></i> Assign Lead to Customer Care</h5>
+            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">&times;</button>
+          </div>
+          <div class="modal-body p-4">
+            <p class="text-white-50 f-size-13 mb-3">Assign <strong class="text-white" id="assignLeadName">—</strong> (<span id="assignLeadMobile" class="base--color">—</span>) to an authorized customer care executive.</p>
+            <input type="hidden" id="assignLeadId">
+            <div class="form-group mb-3">
+              <label class="text-white f-size-13">Select Customer Care Employee <span class="base--color">*</span></label>
+              <select id="assignEmployeeSelect" class="form-control" style="background: #1c1d22; border-color: rgba(204,163,84,0.3); color: #fff;">
+                <option value="">-- Choose Agent --</option>
+              </select>
+            </div>
+            <div class="form-group mb-0">
+              <label class="text-white f-size-13">Assignment Note (Optional)</label>
+              <textarea id="assignNotes" class="form-control" rows="3" placeholder="e.g. Follow up on 3 Years Sovereign plan query" style="background: #1c1d22; border-color: rgba(204,163,84,0.3); color: #fff;"></textarea>
+            </div>
+          </div>
+          <div class="modal-footer modal-dark-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button type="button" id="confirmAssignBtn" class="cmn-btn" style="padding: 8px 24px; font-size: 13.5px;">Assign Lead</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal: Lead History & Details -->
+    <div class="modal fade" id="leadHistoryModal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content modal-dark-content">
+          <div class="modal-header modal-dark-header">
+            <h5 class="modal-title" style="color: #cca354;"><i class="las la-history mr-1"></i> Lead Activity &amp; Call History</h5>
+            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">&times;</button>
+          </div>
+          <div class="modal-body p-4" style="max-height: 70vh; overflow-y: auto;">
+            <div class="p-3 mb-4 rounded" style="background: #1c1d22; border: 1px solid rgba(204,163,84,0.2);">
+              <div class="row">
+                <div class="col-md-4"><small class="text-white-50">Customer</small><div class="text-white font-weight-bold" id="historyCustomerName">—</div></div>
+                <div class="col-md-4"><small class="text-white-50">Mobile</small><div class="base--color font-weight-bold" id="historyCustomerMobile">—</div></div>
+                <div class="col-md-4"><small class="text-white-50">Current Status</small><div id="historyCustomerStatus">—</div></div>
+              </div>
+            </div>
+            <h6 class="text-white mb-3" style="font-size: 14px;"><i class="las la-stream mr-1" style="color: #cca354;"></i> Activity Timeline</h6>
+            <div id="historyTimelineContainer">
+              <p class="text-white-50">No logs found.</p>
+            </div>
+          </div>
+          <div class="modal-footer modal-dark-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <!-- Admin Authentication Modal -->
+  <div class="modal fade" id="adminAuthModal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content modal-dark-content" style="border: 2px solid #cca354; box-shadow: 0 0 35px rgba(204,163,84,0.3);">
+        <div class="modal-header modal-dark-header text-center d-block">
+          <div class="text-center mb-2">
+            <img src="assets/images/logo.png" alt="Shalom Gold" style="max-height: 48px;">
+          </div>
+          <h4 class="modal-title font-weight-bold" style="color: #cca354;">Authorized Administrator Sign In</h4>
+          <p class="text-white-50 f-size-13 mb-0 mt-1">Enter your Shalom Gold administrator credentials to access the leads CRM.</p>
+        </div>
+        <div class="modal-body p-4">
+          <div id="adminLoginError" class="alert alert-danger d-none f-size-13" role="alert"></div>
+          <form id="adminLoginForm">
+            <div class="form-group">
+              <label class="text-white f-size-13 font-weight-bold">Admin Email or ID</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text bg-dark border-secondary text-white-50"><i class="las la-envelope"></i></span>
+                </div>
+                <input type="text" id="adminEmailInput" class="form-control" placeholder="admin@shalomgold.com or EMP-ADMIN" required autocomplete="username">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="text-white f-size-13 font-weight-bold">Password</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text bg-dark border-secondary text-white-50"><i class="las la-lock"></i></span>
+                </div>
+                <input type="password" id="adminPasswordInput" class="form-control" placeholder="Enter password" required autocomplete="current-password">
+              </div>
+            </div>
+            <div class="mt-4">
+              <button type="submit" id="adminLoginSubmitBtn" class="cmn-btn btn-block w-100 py-2">
+                <i class="las la-sign-in-alt mr-1"></i> Sign In to Admin Console
+              </button>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer modal-dark-footer text-center d-block">
+          <p class="text-white-50 f-size-12 mb-0"><i class="las la-lock mr-1" style="color: #cca354;"></i> Protected by 256-bit encryption & server-side authorization.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- Footer -->
+    <footer class="footer bg_img" data-background="assets/images/bg/bg-7.jpg">
+      <div class="footer__bottom">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 text-md-left text-center">
+              <p>© 2026 <a href="index.html" class="base--color">Shalom Gold Ltd.</a> Lead Management CRM. All rights reserved.</p>
+            </div>
+            <div class="col-md-6 text-md-right text-center">
+              <span class="text-white-50 f-size-13"><i class="las la-lock mr-1" style="color: #cca354;"></i> DPDP Act Compliant · Encrypted Lead Storage</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- jQuery & Bootstrap js -->
+  <script src="assets/js/vendor/jquery-3.5.1.min.js"></script>
+  <script src="assets/js/vendor/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/api-config.js"></script>
+
+  <!-- Admin Dashboard Logic -->
+  <script>
+    (function ($) {
+      'use strict';
+
+      let allEmployees = [];
+      let currentLeads = [];
+      let currentAdminUser = null;
+
+      function getApiBase() {
+        return window.SHALOM_CONFIG ? window.SHALOM_CONFIG.API_BASE : '';
+      }
+
+      function escapeHtml(text) {
+        if (!text) return '';
+        return String(text).replace(/[&<>"']/g, function(m) {
+          return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[m];
+        });
+      }
+
+      // 1. Check Authentication on Load
+      async function checkAuth() {
+        try {
+          const res = await fetch(getApiBase() + '/api/auth/me');
+          const data = await res.json();
+          if (data.authenticated && data.employee && data.employee.role === 'admin') {
+            currentAdminUser = data.employee;
+            $('#adminBadgeText').html(`<i class="las la-user-shield mr-1"></i> ${escapeHtml(data.employee.name)}`);
+            $('#btnAdminLogout').show();
+            $('#adminAuthModal').modal('hide');
+            loadEmployees();
+            loadLeads();
+          } else {
+            $('#btnAdminLogout').hide();
+            $('#adminAuthModal').modal('show');
+          }
+        } catch(e) {
+          $('#adminAuthModal').modal('show');
+        }
+      }
+
+      // Handle Admin Login Submit
+      $('#adminLoginForm').on('submit', async function (e) {
+        e.preventDefault();
+        const email = $('#adminEmailInput').val().trim();
+        const password = $('#adminPasswordInput').val();
+        const errBox = $('#adminLoginError');
+        const submitBtn = $('#adminLoginSubmitBtn');
+
+        errBox.addClass('d-none').text('');
+        submitBtn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm mr-1"></span> Signing In...');
+
+        try {
+          const res = await fetch(getApiBase() + '/api/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
+          });
+          const data = await res.json();
+          if (data.success && data.employee) {
+            if (data.employee.role !== 'admin') {
+              errBox.removeClass('d-none').text('Access denied: You must be an administrator to access this console.');
+              return;
+            }
+            currentAdminUser = data.employee;
+            $('#adminBadgeText').html(`<i class="las la-user-shield mr-1"></i> ${escapeHtml(data.employee.name)}`);
+            $('#btnAdminLogout').show();
+            $('#adminAuthModal').modal('hide');
+            loadEmployees();
+            loadLeads();
+          } else {
+            errBox.removeClass('d-none').text(data.error || 'Invalid credentials. Please verify your email and password.');
+          }
+        } catch(e) {
+          errBox.removeClass('d-none').text('Network error connecting to backend API.');
+        } finally {
+          submitBtn.prop('disabled', false).html('<i class="las la-sign-in-alt mr-1"></i> Sign In to Admin Console');
+        }
+      });
+
+      // Handle Sign Out
+      $('#btnAdminLogout').on('click', async function () {
+        try {
+          await fetch(getApiBase() + '/api/auth/logout', { method: 'POST' });
+        } catch(e) {}
+        window.location.reload();
+      });
+
+      // Fetch employees
+      async function loadEmployees() {
+        try {
+          const res = await fetch(getApiBase() + '/api/employees');
+          if (res.status === 401) {
+            $('#adminAuthModal').modal('show');
+            return;
+          }
+          const data = await res.json();
+          if (data.success) {
+            allEmployees = data.employees;
+            const agentFilter = $('#agentFilter');
+            const assignSelect = $('#assignEmployeeSelect');
+            agentFilter.find('option:gt(1)').remove();
+            assignSelect.find('option:gt(0)').remove();
+
+            data.employees.filter(e => e.role === 'customer_care').forEach(emp => {
+              agentFilter.append(`<option value="${emp.id}">${emp.name} (${emp.id})</option>`);
+              assignSelect.append(`<option value="${emp.id}">${emp.name} (${emp.id})</option>`);
+            });
+          }
+        } catch (e) {
+          console.error('Error loading employees:', e);
+        }
+      }
+
+      // Fetch leads with filters
+      async function loadLeads() {
+        const search = $('#searchInput').val().trim();
+        const status = $('#statusFilter').val();
+        const assignedTo = $('#agentFilter').val();
+        const fromDate = $('#fromDateFilter').val();
+
+        let url = `${getApiBase()}/api/admin/leads?search=${encodeURIComponent(search)}&status=${encodeURIComponent(status)}&assigned_to=${encodeURIComponent(assignedTo)}`;
+        if (fromDate) url += `&from_date=${encodeURIComponent(fromDate)}`;
+
+        try {
+          const res = await fetch(url);
+          if (res.status === 401) {
+            $('#adminAuthModal').modal('show');
+            return;
+          }
+          const data = await res.json();
+          if (data.success) {
+            currentLeads = data.leads;
+            renderMetrics(data.metrics);
+            renderTable(data.leads);
+          } else {
+            $('#leadsTableBody').html(`<tr><td colspan="9" class="text-center py-4 text-danger"><i class="las la-exclamation-triangle mr-1"></i> ${data.error || 'Failed to load leads.'}</td></tr>`);
+          }
+        } catch (e) {
+          $('#leadsTableBody').html(`<tr><td colspan="9" class="text-center py-4 text-danger"><i class="las la-exclamation-triangle mr-1"></i> Failed to connect to backend API server.</td></tr>`);
+        }
+      }
+
+      function renderMetrics(metrics) {
+        if (!metrics) return;
+        $('#metricTotal').text(metrics.total || 0);
+        $('#metricNew').text(metrics.new || 0);
+        $('#metricContacted').text(metrics.contacted || 0);
+        $('#metricInterested').text(metrics.interested || 0);
+        $('#metricFollowUp').text(metrics.follow_up || 0);
+        $('#metricConverted').text(metrics.converted || 0);
+      }
+
+      function getStatusBadge(status) {
+        const s = (status || 'New').toLowerCase().replace(/\s+/g, '-');
+        return `<span class="lead-status-badge status-${s}">${status || 'New'}</span>`;
+      }
+
+      function formatDate(isoStr) {
+        if (!isoStr) return 'N/A';
+        try {
+          const d = new Date(isoStr);
+          return d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' }) + ' ' + d.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+        } catch(e) {
+          return isoStr.slice(0, 10);
+        }
+      }
+
+      function renderTable(leads) {
+        const tbody = $('#leadsTableBody');
+        if (!leads || leads.length === 0) {
+          tbody.html(`<tr><td colspan="9" class="text-center py-5 text-white-50"><i class="las la-inbox" style="font-size: 38px; color: #cca354;"></i><p class="mt-2 mb-0">No website leads matching current criteria.</p></td></tr>`);
+          return;
+        }
+
+        let html = '';
+        leads.forEach(lead => {
+          const assignedText = lead.assigned_employee_name 
+            ? `<span class="badge" style="background: rgba(204,163,84,0.15); color: #DFBA73; border: 1px solid rgba(204,163,84,0.3);">${lead.assigned_employee_name}</span>` 
+            : `<span class="badge badge-secondary">Unassigned</span>`;
+
+          html += `
+            <tr data-lead-id="${lead.id}">
+              <td class="font-weight-bold" style="color: #cca354;">#${lead.id}</td>
+              <td class="font-weight-bold text-white">${escapeHtml(lead.full_name)}</td>
+              <td><a href="tel:${lead.mobile_number}" class="base--color text-decoration-none font-weight-bold"><i class="las la-phone mr-1"></i>${lead.mobile_number}</a></td>
+              <td><span class="badge badge-dark" style="border: 1px solid rgba(255,255,255,0.15);">${lead.source}</span></td>
+              <td class="f-size-12 text-white-50">${formatDate(lead.created_at)}</td>
+              <td><span class="badge badge-success"><i class="las la-check mr-1"></i> Granted (${lead.consent_timestamp ? String(lead.consent_timestamp).slice(0,10) : 'Recorded'})</span></td>
+              <td>${getStatusBadge(lead.lead_status)}</td>
+              <td>${assignedText}</td>
+              <td class="text-right">
+                <button type="button" class="lead-action-btn btn-assign assign-btn" data-id="${lead.id}" data-name="${escapeHtml(lead.full_name)}" data-mobile="${lead.mobile_number}" data-assigned="${lead.assigned_employee_id || ''}">
+                  <i class="las la-user-plus"></i> Assign
+                </button>
+                <button type="button" class="lead-action-btn btn-history history-btn ml-1" data-id="${lead.id}" data-name="${escapeHtml(lead.full_name)}" data-mobile="${lead.mobile_number}" data-status="${lead.lead_status}">
+                  <i class="las la-history"></i> Log
+                </button>
+              </td>
+            </tr>
+          `;
+        });
+        tbody.html(html);
+      }
+
+      // Open Assign Modal
+      $(document).on('click', '.assign-btn', function () {
+        const id = $(this).data('id');
+        const name = $(this).data('name');
+        const mobile = $(this).data('mobile');
+        const assigned = $(this).data('assigned');
+
+        $('#assignLeadId').val(id);
+        $('#assignLeadName').text(name);
+        $('#assignLeadMobile').text(mobile);
+        $('#assignEmployeeSelect').val(assigned || '');
+        $('#assignNotes').val('');
+        $('#assignLeadModal').modal('show');
+      });
+
+      // Confirm Assign
+      $('#confirmAssignBtn').on('click', async function () {
+        const leadId = $('#assignLeadId').val();
+        const employeeId = $('#assignEmployeeSelect').val();
+        const notes = $('#assignNotes').val().trim();
+
+        if (!employeeId) {
+          alert('Please select an employee to assign this lead to.');
+          return;
+        }
+
+        const btn = $(this);
+        btn.prop('disabled', true).text('Assigning...');
+
+        try {
+          const res = await fetch(getApiBase() + '/api/admin/leads/assign', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              lead_id: leadId,
+              employee_id: employeeId,
+              notes: notes
+            })
+          });
+          const data = await res.json();
+          if (data.success) {
+            $('#assignLeadModal').modal('hide');
+            loadLeads();
+          } else {
+            alert(data.error || 'Assignment failed.');
+          }
+        } catch(e) {
+          alert('Network error communicating with server.');
+        } finally {
+          btn.prop('disabled', false).text('Assign Lead');
+        }
+      });
+
+      // Open History Modal
+      $(document).on('click', '.history-btn', async function () {
+        const leadId = $(this).data('id');
+        const name = $(this).data('name');
+        const mobile = $(this).data('mobile');
+        const status = $(this).data('status');
+
+        $('#historyCustomerName').text(name);
+        $('#historyCustomerMobile').text(mobile);
+        $('#historyCustomerStatus').html(getStatusBadge(status));
+        $('#historyTimelineContainer').html('<p class="text-white-50">Loading timeline...</p>');
+        $('#leadHistoryModal').modal('show');
+
+        try {
+          const res = await fetch(`${getApiBase()}/api/leads/history?lead_id=${leadId}`);
+          const data = await res.json();
+          if (data.success) {
+            const container = $('#historyTimelineContainer');
+            if (!data.history || data.history.length === 0) {
+              container.html('<p class="text-white-50">No activity logged yet.</p>');
+              return;
+            }
+            let html = '';
+            data.history.forEach(log => {
+              html += `
+                <div class="timeline-item">
+                  <div class="d-flex justify-content-between">
+                    <strong style="color: #cca354; font-size: 13.5px;">${escapeHtml(log.action_type)}</strong>
+                    <span class="text-white-50 f-size-11">${formatDate(log.timestamp)}</span>
+                  </div>
+                  <div class="text-white-50 f-size-12">By <strong class="text-white">${escapeHtml(log.actor_name)}</strong> (${log.actor_role})</div>
+                  <p class="mb-0 mt-1 f-size-13 text-white" style="line-height: 1.5;">${escapeHtml(log.details)}</p>
+                </div>
+              `;
+            });
+            container.html(html);
+          }
+        } catch(e) {
+          $('#historyTimelineContainer').html('<p class="text-danger">Failed to load history.</p>');
+        }
+      });
+
+      // Export CSV
+      $('#exportCsvBtn').on('click', function () {
+        window.location.href = getApiBase() + '/api/admin/leads/export';
+      });
+
+      // Filter change listeners
+      $('#searchInput').on('keyup', debounce(loadLeads, 300));
+      $('#statusFilter, #agentFilter, #fromDateFilter').on('change', loadLeads);
+      $('#resetFiltersBtn').on('click', function() {
+        $('#searchInput').val('');
+        $('#statusFilter').val('All');
+        $('#agentFilter').val('All');
+        $('#fromDateFilter').val('');
+        loadLeads();
+      });
+
+      function debounce(fn, delay) {
+        let timer = null;
+        return function() {
+          clearTimeout(timer);
+          timer = setTimeout(fn, delay);
+        };
+      }
+
+      // Run Auth check on start
+      checkAuth();
+
+    })(jQuery);
+  </script>
+</body>
+</html>

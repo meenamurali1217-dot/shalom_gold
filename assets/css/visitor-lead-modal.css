@@ -1,0 +1,404 @@
+/**
+ * SHALOM GOLD - Mandatory First-Time Visitor Lead Registration Modal Styles
+ * Luxury Black & Gold Theme (#101113, #15161a, #cca354, #DFBA73)
+ */
+
+/* Backdrop overlay - completely prevents outside interaction */
+.shalom-lead-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(8, 9, 12, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 9999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+    user-select: none;
+}
+
+.shalom-lead-backdrop.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Modal Card */
+.shalom-lead-card {
+    background: #15161a;
+    border: 2px solid #cca354;
+    border-radius: 22px;
+    max-width: 500px;
+    width: 100%;
+    padding: 36px 32px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 35px rgba(204, 163, 84, 0.25);
+    position: relative;
+    transform: scale(0.92) translateY(20px);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    color: #ffffff;
+    text-align: left;
+    user-select: text;
+}
+
+.shalom-lead-backdrop.active .shalom-lead-card {
+    transform: scale(1) translateY(0);
+}
+
+/* Modal Header */
+.shalom-lead-header {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.shalom-lead-logo {
+    max-height: 70px;
+    width: auto;
+    margin-bottom: 15px;
+    filter: drop-shadow(0 4px 12px rgba(204, 163, 84, 0.3));
+}
+
+.shalom-lead-pill {
+    display: inline-block;
+    background: rgba(204, 163, 84, 0.15);
+    border: 1px solid rgba(204, 163, 84, 0.4);
+    color: #DFBA73;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    padding: 4px 14px;
+    border-radius: 30px;
+    margin-bottom: 10px;
+}
+
+.shalom-lead-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 8px;
+    line-height: 1.25;
+}
+
+.shalom-lead-title span {
+    color: #cca354;
+}
+
+.shalom-lead-desc {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 13.5px;
+    line-height: 1.55;
+    margin-bottom: 0;
+}
+
+/* Form Styles */
+.shalom-lead-form .form-group {
+    margin-bottom: 18px;
+}
+
+.shalom-lead-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 7px;
+    letter-spacing: 0.3px;
+}
+
+.shalom-lead-input-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.shalom-lead-input-icon {
+    position: absolute;
+    left: 14px;
+    color: #cca354;
+    font-size: 17px;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.shalom-lead-input {
+    width: 100%;
+    background: #1c1d22;
+    border: 1px solid rgba(204, 163, 84, 0.35);
+    border-radius: 10px;
+    color: #ffffff;
+    padding: 12px 14px 12px 42px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.shalom-lead-input:focus {
+    border-color: #cca354;
+    box-shadow: 0 0 12px rgba(204, 163, 84, 0.3);
+    outline: none;
+    background: #21232a;
+}
+
+/* Mobile input with fixed +91 flag badge */
+.shalom-lead-mobile-wrap {
+    display: flex;
+    align-items: stretch;
+    border: 1px solid rgba(204, 163, 84, 0.35);
+    border-radius: 10px;
+    background: #1c1d22;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.shalom-lead-mobile-wrap:focus-within {
+    border-color: #cca354;
+    box-shadow: 0 0 12px rgba(204, 163, 84, 0.3);
+}
+
+.shalom-lead-country-badge {
+    background: rgba(204, 163, 84, 0.15);
+    border-right: 1px solid rgba(204, 163, 84, 0.3);
+    padding: 0 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #DFBA73;
+    font-weight: 700;
+    font-size: 13.5px;
+    user-select: none;
+}
+
+.shalom-lead-mobile-input {
+    border: none;
+    background: transparent;
+    padding: 12px 14px;
+    color: #ffffff;
+    font-size: 15px;
+    width: 100%;
+    letter-spacing: 0.5px;
+}
+
+.shalom-lead-mobile-input:focus {
+    outline: none;
+}
+
+/* Explicit Consent Checkbox */
+.shalom-lead-consent-box {
+    background: rgba(204, 163, 84, 0.08);
+    border: 1px solid rgba(204, 163, 84, 0.25);
+    border-radius: 10px;
+    padding: 14px;
+    margin: 20px 0;
+}
+
+.shalom-lead-checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 12.5px;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 0;
+    cursor: pointer;
+    user-select: none;
+}
+
+.shalom-lead-checkbox-label input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #cca354;
+    cursor: pointer;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+.shalom-lead-consent-text a {
+    color: #cca354;
+    text-decoration: underline;
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+.shalom-lead-consent-text a:hover {
+    color: #DFBA73;
+}
+
+.shalom-lead-dpdp-note {
+    display: block;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.5);
+    margin-top: 8px;
+    padding-top: 6px;
+    border-top: 1px dashed rgba(204, 163, 84, 0.2);
+}
+
+/* Error Message Banner */
+.shalom-lead-error {
+    background: rgba(220, 53, 69, 0.18);
+    border: 1px solid rgba(220, 53, 69, 0.6);
+    color: #ff8b94;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 12.5px;
+    line-height: 1.4;
+    margin-bottom: 16px;
+    display: none;
+    align-items: center;
+    gap: 8px;
+}
+
+.shalom-lead-error.active {
+    display: flex;
+}
+
+/* Submit Button */
+.shalom-lead-submit-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #DFBA73, #cca354);
+    color: #101113 !important;
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 1px;
+    padding: 14px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: 0 4px 15px rgba(204, 163, 84, 0.35);
+}
+
+.shalom-lead-submit-btn:hover:not(:disabled) {
+    background: linear-gradient(135deg, #cca354, #b8860b);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(204, 163, 84, 0.45);
+}
+
+.shalom-lead-submit-btn:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Success State */
+.shalom-lead-success-wrap {
+    text-align: center;
+    padding: 30px 10px;
+    display: none;
+}
+
+.shalom-lead-success-wrap.active {
+    display: block;
+}
+
+.shalom-lead-success-icon {
+    width: 68px;
+    height: 68px;
+    line-height: 68px;
+    border-radius: 50%;
+    background: rgba(40, 167, 69, 0.15);
+    border: 2px solid #28a745;
+    color: #28a745;
+    font-size: 36px;
+    margin: 0 auto 18px;
+}
+
+/* Privacy Policy Inline Nested Modal */
+.shalom-policy-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.88);
+    z-index: 10000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.shalom-policy-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.shalom-policy-card {
+    background: #15161a;
+    border: 1px solid #cca354;
+    border-radius: 16px;
+    max-width: 580px;
+    width: 100%;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
+}
+
+.shalom-policy-header {
+    padding: 18px 24px;
+    border-bottom: 1px solid rgba(204, 163, 84, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.shalom-policy-header h4 {
+    margin: 0;
+    color: #cca354;
+    font-size: 18px;
+    font-family: 'Playfair Display', serif;
+}
+
+.shalom-policy-close {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 22px;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.shalom-policy-close:hover {
+    color: #cca354;
+}
+
+.shalom-policy-body {
+    padding: 24px;
+    overflow-y: auto;
+    font-size: 13px;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.82);
+}
+
+.shalom-policy-body h6 {
+    color: #cca354;
+    margin-top: 14px;
+    margin-bottom: 4px;
+    font-size: 14px;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 575px) {
+    .shalom-lead-card {
+        padding: 26px 20px;
+        border-radius: 16px;
+    }
+    .shalom-lead-title {
+        font-size: 23px;
+    }
+    .shalom-lead-desc {
+        font-size: 12.5px;
+    }
+}

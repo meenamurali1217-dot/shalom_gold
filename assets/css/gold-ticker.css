@@ -1,0 +1,378 @@
+/* ==========================================================================
+   SHALOM GOLD – AUTOMATIC LIVE GOLD PRICE TICKER
+   Official National IBJA Benchmark Ticker
+   Deep Emerald Green (#123D32) & Champagne Gold Theme
+   ========================================================================== */
+
+#shalom-live-ticker-container,
+.shalom-live-ticker-container {
+    width: 100% !important;
+    height: 48px !important;
+    min-height: 48px !important;
+    background: #123D32 !important;
+    background: linear-gradient(90deg, #0A241E 0%, #123D32 50%, #0A241E 100%) !important;
+    border-bottom: 1px solid rgba(230, 202, 133, 0.35) !important;
+    color: #FFFFFF !important;
+    position: relative !important;
+    z-index: 1050 !important;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+    line-height: 1 !important;
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.shalom-live-ticker-bar {
+    display: flex !important;
+    align-items: center !important;
+    height: 100% !important;
+    width: 100% !important;
+    padding: 0 16px !important;
+    box-sizing: border-box !important;
+    position: relative !important;
+}
+
+/* --------------------------------------------------------------------------
+   Left Fixed Benchmark Badge & National Rate Label
+   -------------------------------------------------------------------------- */
+.ticker-source-badge {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    background: rgba(6, 22, 18, 0.95) !important;
+    color: #E6CA85 !important;
+    border: 1px solid rgba(230, 202, 133, 0.45) !important;
+    border-radius: 4px !important;
+    padding: 5px 12px !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.6px !important;
+    white-space: nowrap !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35) !important;
+    z-index: 3 !important;
+    flex-shrink: 0 !important;
+}
+
+.ticker-source-badge .live-dot {
+    width: 7px !important;
+    height: 7px !important;
+    background-color: #E6CA85 !important;
+    border-radius: 50% !important;
+    box-shadow: 0 0 8px #E6CA85 !important;
+    display: inline-block !important;
+    flex-shrink: 0 !important;
+    animation: ticker-pulse 2s infinite ease-in-out !important;
+}
+
+.ticker-source-title {
+    color: #FAF6EF !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.6px !important;
+    display: inline-block !important;
+}
+
+.ticker-national-pill {
+    background: #E6CA85 !important;
+    color: #0A241E !important;
+    font-size: 9px !important;
+    font-weight: 800 !important;
+    padding: 2px 6px !important;
+    border-radius: 3px !important;
+    letter-spacing: 0.5px !important;
+    text-transform: uppercase !important;
+    display: inline-block !important;
+    line-height: 1.1 !important;
+    margin-left: 2px !important;
+}
+
+@keyframes ticker-pulse {
+    0%, 100% { transform: scale(0.9); opacity: 0.7; }
+    50% { transform: scale(1.3); opacity: 1; }
+}
+
+/* --------------------------------------------------------------------------
+   Scrolling Viewport (Single Continuous Horizontal Row)
+   -------------------------------------------------------------------------- */
+.ticker-viewport {
+    flex: 1 1 auto !important;
+    overflow: hidden !important;
+    position: relative !important;
+    height: 100% !important;
+    margin: 0 12px !important;
+    display: flex !important;
+    align-items: center !important;
+    mask-image: linear-gradient(to right, transparent, black 16px, black calc(100% - 16px), transparent) !important;
+    -webkit-mask-image: linear-gradient(to right, transparent, black 16px, black calc(100% - 16px), transparent) !important;
+}
+
+/* Track: single line, strictly horizontal right-to-left scrolling */
+.ticker-track {
+    display: inline-flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    height: 100% !important;
+    white-space: nowrap !important;
+    will-change: transform !important;
+    animation: ticker-scroll 35s linear infinite !important;
+}
+
+/* Pause animation on hover */
+.ticker-viewport:hover .ticker-track,
+.ticker-track:hover {
+    animation-play-state: paused !important;
+}
+
+/* Accessible Pause State (via Toggle Button) */
+.shalom-live-ticker-container.is-paused .ticker-track {
+    animation-play-state: paused !important;
+}
+
+/* Continuous Horizontal Scrolling Keyframe (Right to Left Seamless Loop) */
+@keyframes ticker-scroll {
+    0% {
+        transform: translate3d(0, 0, 0);
+    }
+    100% {
+        transform: translate3d(-33.333333%, 0, 0);
+    }
+}
+
+/* --------------------------------------------------------------------------
+   Individual Rate Items
+   -------------------------------------------------------------------------- */
+.ticker-item {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    padding: 0 18px !important;
+    height: 100% !important;
+    font-size: 13px !important;
+    border-right: 1px solid rgba(230, 202, 133, 0.25) !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+    box-sizing: border-box !important;
+}
+
+.ticker-item:last-child {
+    border-right: 1px solid rgba(230, 202, 133, 0.25) !important;
+}
+
+/* Champagne Gold Pill for Benchmark & Highlights */
+.ticker-pill-gold {
+    background: rgba(230, 202, 133, 0.15) !important;
+    border: 1px solid rgba(230, 202, 133, 0.35) !important;
+    color: #E6CA85 !important;
+    padding: 3px 8px !important;
+    border-radius: 4px !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.3px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 5px !important;
+    white-space: nowrap !important;
+}
+
+.ticker-label {
+    color: #FAF6EF !important;
+    font-weight: 500 !important;
+    white-space: nowrap !important;
+}
+
+.ticker-val {
+    color: #FFFFFF !important;
+    font-weight: 700 !important;
+    font-feature-settings: 'tnum' !important;
+    letter-spacing: 0.2px !important;
+    white-space: nowrap !important;
+}
+
+/* Daily Delta Movement Indicators */
+.ticker-delta-up {
+    color: #4ADE80 !important;
+    font-weight: 600 !important;
+    font-size: 11.5px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 3px !important;
+    white-space: nowrap !important;
+}
+
+.ticker-delta-down {
+    color: #F87171 !important;
+    font-weight: 600 !important;
+    font-size: 11.5px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 3px !important;
+    white-space: nowrap !important;
+}
+
+/* GST & Making Charges Exclusion Notice */
+.ticker-notice-badge {
+    background: rgba(6, 22, 18, 0.7) !important;
+    border: 1px solid rgba(230, 202, 133, 0.3) !important;
+    color: #E6CA85 !important;
+    font-size: 11px !important;
+    padding: 3px 9px !important;
+    border-radius: 4px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 5px !important;
+    white-space: nowrap !important;
+}
+
+/* Inline SVG Icon Helper (Zero Broken Font Icon Squares) */
+.ticker-svg-icon {
+    display: inline-block !important;
+    vertical-align: middle !important;
+    fill: currentColor !important;
+    flex-shrink: 0 !important;
+}
+
+/* --------------------------------------------------------------------------
+   Right Controls: Accessible Pause Button & Hallmark Badge
+   -------------------------------------------------------------------------- */
+.ticker-ctrl-box {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    flex-shrink: 0 !important;
+    z-index: 3 !important;
+}
+
+.ticker-pause-toggle {
+    background: rgba(6, 22, 18, 0.9) !important;
+    border: 1px solid rgba(230, 202, 133, 0.45) !important;
+    color: #E6CA85 !important;
+    width: 28px !important;
+    height: 28px !important;
+    border-radius: 4px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    font-size: 11px !important;
+    transition: all 0.2s ease !important;
+    padding: 0 !important;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3) !important;
+}
+
+.ticker-pause-toggle:hover {
+    background: #E6CA85 !important;
+    color: #123D32 !important;
+    border-color: #E6CA85 !important;
+}
+
+.ticker-hallmark-badge {
+    background: rgba(230, 202, 133, 0.18) !important;
+    border: 1px solid rgba(230, 202, 133, 0.45) !important;
+    color: #E6CA85 !important;
+    padding: 4px 9px !important;
+    border-radius: 4px !important;
+    font-size: 10.5px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.5px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 5px !important;
+    text-transform: uppercase !important;
+    white-space: nowrap !important;
+}
+
+/* --------------------------------------------------------------------------
+   Accessibility: Reduced Motion Preference
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+    .ticker-track {
+        animation: none !important;
+    }
+    .ticker-viewport {
+        overflow-x: auto !important;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   Responsive Breakpoints
+   -------------------------------------------------------------------------- */
+@media (max-width: 1199px) {
+    .ticker-source-title {
+        font-size: 10.5px !important;
+    }
+    .ticker-item {
+        padding: 0 14px !important;
+    }
+}
+
+@media (max-width: 991px) {
+    #shalom-live-ticker-container,
+    .shalom-live-ticker-container {
+        height: 46px !important;
+        min-height: 46px !important;
+    }
+    .ticker-item {
+        padding: 0 12px !important;
+        font-size: 12px !important;
+    }
+    .ticker-source-badge {
+        font-size: 10px !important;
+        padding: 4px 8px !important;
+    }
+}
+
+@media (max-width: 767px) {
+    .ticker-source-title {
+        font-size: 10px !important;
+    }
+    .ticker-source-badge {
+        gap: 6px !important;
+        padding: 4px 8px !important;
+    }
+    .ticker-national-pill {
+        font-size: 8px !important;
+        padding: 1px 4px !important;
+    }
+    .ticker-viewport {
+        margin: 0 8px !important;
+    }
+}
+
+@media (max-width: 576px) {
+    #shalom-live-ticker-container,
+    .shalom-live-ticker-container {
+        height: 44px !important;
+        min-height: 44px !important;
+    }
+    .shalom-live-ticker-bar {
+        padding: 0 8px !important;
+    }
+    .ticker-source-badge {
+        font-size: 9px !important;
+        padding: 3px 6px !important;
+        gap: 4px !important;
+    }
+    .ticker-viewport {
+        margin: 0 6px !important;
+    }
+    .ticker-item {
+        padding: 0 10px !important;
+        font-size: 11px !important;
+        gap: 5px !important;
+    }
+    .ticker-pill-gold,
+    .ticker-notice-badge {
+        font-size: 9.5px !important;
+        padding: 2px 5px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .ticker-source-title {
+        display: none !important; /* Hide long heading on tiny mobile, keep live dot + NATIONAL RATE pill */
+    }
+}

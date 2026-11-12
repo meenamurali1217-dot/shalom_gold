@@ -1,0 +1,518 @@
+<!-- meta tags and other links -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Client Gold Passbook & Dashboard — Shalom Gold</title>
+  <meta name="description" content="View your live digital gold passbook, accumulated 24K grams, monthly scheme bonus credits, and redemption history with Shalom Gold.">
+  <link rel="icon" type="image/png" href="assets/images/favicon.png" sizes="16x16">
+  <!-- bootstrap 4  -->
+  <link rel="stylesheet" href="assets/css/vendor/bootstrap.min.css">
+  <!-- fontawesome 5  -->
+  <link rel="stylesheet" href="assets/css/all.min.css">
+  <!-- line-awesome webfont -->
+  <link rel="stylesheet" href="assets/css/line-awesome.min.css">
+  <link rel="stylesheet" href="assets/css/vendor/animate.min.css">
+  <!-- slick slider css -->
+  <link rel="stylesheet" href="assets/css/vendor/slick.css">
+  <link rel="stylesheet" href="assets/css/vendor/dots.css">
+  <!-- dashboard main css -->
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/gold-ticker.css">
+  <link rel="stylesheet" href="assets/css/visitor-lead-modal.css">
+  <script>
+    if (!localStorage.getItem('shalom_logged_in_user')) {
+      window.location.replace('login.html?redirect=dashboard.html');
+    }
+  </script>
+</head>
+  <body>
+    <div class="preloader">
+      <div class="preloader-container">
+        <span class="animated-preloader"></span>
+      </div>
+    </div>
+  
+    <!-- scroll-to-top start -->
+    <div class="scroll-to-top">
+      <span class="scroll-icon">
+        <i class="fa fa-rocket" aria-hidden="true"></i>
+      </span>
+    </div>
+    <!-- scroll-to-top end -->
+
+  <div class="full-wh">
+    <!-- STAR ANIMATION -->
+    <div class="bg-animation">
+      <div id='stars'></div>
+      <div id='stars2'></div>
+      <div id='stars3'></div>
+      <div id='stars4'></div>
+    </div><!-- / STAR ANIMATION -->
+  </div>
+  <div class="page-wrapper">
+          
+
+  <!-- header-section start  -->
+  <header class="header">
+  <!-- Automatic Live Gold Price Ticker Start (IBJA Benchmark) -->
+    <div id="shalom-live-ticker-container" class="shalom-live-ticker-container" role="region" aria-label="IBJA National Gold Price Ticker">
+        <div class="shalom-live-ticker-bar">
+            <!-- Left Fixed Benchmark Badge -->
+            <div class="ticker-source-badge" title="Official India National IBJA Benchmark Gold Rate">
+                <span class="live-dot" aria-hidden="true"></span>
+                <span class="ticker-source-title">INDIA – NATIONAL IBJA GOLD BENCHMARK</span>
+                <span class="ticker-national-pill">NATIONAL RATE</span>
+            </div>
+
+            <!-- Scrolling Viewport (Single Horizontal Row) -->
+            <div class="ticker-viewport" id="ticker-viewport">
+                <div class="ticker-track" id="ticker-track">
+                    <div class="ticker-item">
+                        <span class="ticker-pill-gold"><svg class="ticker-svg-icon" width="12" height="12" viewBox="0 0 24 24"><path d="M12 1L2 6v2h20V6L12 1zm-7 9v9h2v-9H5zm4 0v9h2v-9H9zm4 0v9h2v-9h-2zm4 0v9h2v-9h-2zm-13 11v2h18v-2H2z"/></svg>IBJA PM Closing Benchmark</span>
+                        <span class="ticker-label text-white-50 font-monospace"><svg class="ticker-svg-icon" width="11" height="11" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>06/11/2026 • 04:30 PM IST</span>
+                    </div>
+                    <div class="ticker-item">
+                        <span class="ticker-label">24K Gold (999):</span>
+                        <span class="ticker-val">₹14,145.20/g</span>
+                        <span class="ticker-delta-up"><svg class="ticker-svg-icon" width="10" height="10" viewBox="0 0 12 12"><path d="M6 2L1 10h10z"/></svg>+₹42.90 (+0.30%)</span>
+                    </div>
+                    <div class="ticker-item">
+                        <span class="ticker-label">22K Gold (916):</span>
+                        <span class="ticker-val">₹12,957.00/g</span>
+                        <span class="ticker-delta-up"><svg class="ticker-svg-icon" width="10" height="10" viewBox="0 0 12 12"><path d="M6 2L1 10h10z"/></svg>+₹39.30 (+0.30%)</span>
+                    </div>
+                    <div class="ticker-item">
+                        <span class="ticker-label">18K Gold (750):</span>
+                        <span class="ticker-val">₹10,608.90/g</span>
+                        <span class="ticker-delta-up"><svg class="ticker-svg-icon" width="10" height="10" viewBox="0 0 12 12"><path d="M6 2L1 10h10z"/></svg>+₹32.20 (+0.30%)</span>
+                    </div>
+                    <div class="ticker-item">
+                        <span class="ticker-label">Silver (999):</span>
+                        <span class="ticker-val">₹182.87/g</span>
+                        <span class="ticker-delta-up"><svg class="ticker-svg-icon" width="10" height="10" viewBox="0 0 12 12"><path d="M6 2L1 10h10z"/></svg>+₹1.01 (+0.56%)</span>
+                    </div>
+                    <div class="ticker-item">
+                        <span class="ticker-notice-badge"><svg class="ticker-svg-icon" width="12" height="12" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>Rates Exclude 3% GST &amp; Making Charges</span>
+                    </div>
+                    <div class="ticker-item">
+                        <span class="ticker-pill-gold"><svg class="ticker-svg-icon" width="12" height="12" viewBox="0 0 24 24"><path d="M12 1L2 6v2h20V6L12 1zm-7 9v9h2v-9H5zm4 0v9h2v-9H9zm4 0v9h2v-9h-2zm4 0v9h2v-9h-2zm-13 11v2h18v-2H2z"/></svg>IBJA PM Closing Benchmark</span>
+                        <span class="ticker-label text-white-50 font-monospace"><svg class="ticker-svg-icon" width="11" height="11" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>06/11/2026 • 04:30 PM IST</span>
+                    </div>
+                    <div class="ticker-item">
+                        <span class="ticker-label">24K Gold (999):</span>
+                        <span class="ticker-val">₹14,145.20/g</span>
+                        <span class="ticker-delta-up"><svg class="ticker-svg-icon" width="10" height="10" viewBox="0 0 12 12"><path d="M6 2L1 10h10z"/></svg>+₹42.90 (+0.30%)</span>
+                    </div>
+                    <div class="ticker-item">
+                        <span class="ticker-label">22K Gold (916):</span>
+                        <span class="ticker-val">₹12,957.00/g</span>
+                        <span class="ticker-delta-up"><svg class="ticker-svg-icon" width="10" height="10" viewBox="0 0 12 12"><path d="M6 2L1 10h10z"/></svg>+₹39.30 (+0.30%)</span>
+                    </div>
+                    <div class="ticker-item">
+                        <span class="ticker-label">18K Gold (750):</span>
+                        <span class="ticker-val">₹10,608.90/g</span>
+                        <span class="ticker-delta-up"><svg class="ticker-svg-icon" width="10" height="10" viewBox="0 0 12 12"><path d="M6 2L1 10h10z"/></svg>+₹32.20 (+0.30%)</span>
+                    </div>
+                    <div class="ticker-item">
+                        <span class="ticker-label">Silver (999):</span>
+                        <span class="ticker-val">₹182.87/g</span>
+                        <span class="ticker-delta-up"><svg class="ticker-svg-icon" width="10" height="10" viewBox="0 0 12 12"><path d="M6 2L1 10h10z"/></svg>+₹1.01 (+0.56%)</span>
+                    </div>
+                    <div class="ticker-item">
+                        <span class="ticker-notice-badge"><svg class="ticker-svg-icon" width="12" height="12" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>Rates Exclude 3% GST &amp; Making Charges</span>
+                    </div>
+                    <div class="ticker-item">
+                        <span class="ticker-pill-gold"><svg class="ticker-svg-icon" width="12" height="12" viewBox="0 0 24 24"><path d="M12 1L2 6v2h20V6L12 1zm-7 9v9h2v-9H5zm4 0v9h2v-9H9zm4 0v9h2v-9h-2zm4 0v9h2v-9h-2zm-13 11v2h18v-2H2z"/></svg>IBJA PM Closing Benchmark</span>
+                        <span class="ticker-label text-white-50 font-monospace"><svg class="ticker-svg-icon" width="11" height="11" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>06/11/2026 • 04:30 PM IST</span>
+                    </div>
+                    <div class="ticker-item">
+                        <span class="ticker-label">24K Gold (999):</span>
+                        <span class="ticker-val">₹14,145.20/g</span>
+                        <span class="ticker-delta-up"><svg class="ticker-svg-icon" width="10" height="10" viewBox="0 0 12 12"><path d="M6 2L1 10h10z"/></svg>+₹42.90 (+0.30%)</span>
+                    </div>
+                    <div class="ticker-item">
+                        <span class="ticker-label">22K Gold (916):</span>
+                        <span class="ticker-val">₹12,957.00/g</span>
+                        <span class="ticker-delta-up"><svg class="ticker-svg-icon" width="10" height="10" viewBox="0 0 12 12"><path d="M6 2L1 10h10z"/></svg>+₹39.30 (+0.30%)</span>
+                    </div>
+                    <div class="ticker-item">
+                        <span class="ticker-label">18K Gold (750):</span>
+                        <span class="ticker-val">₹10,608.90/g</span>
+                        <span class="ticker-delta-up"><svg class="ticker-svg-icon" width="10" height="10" viewBox="0 0 12 12"><path d="M6 2L1 10h10z"/></svg>+₹32.20 (+0.30%)</span>
+                    </div>
+                    <div class="ticker-item">
+                        <span class="ticker-label">Silver (999):</span>
+                        <span class="ticker-val">₹182.87/g</span>
+                        <span class="ticker-delta-up"><svg class="ticker-svg-icon" width="10" height="10" viewBox="0 0 12 12"><path d="M6 2L1 10h10z"/></svg>+₹1.01 (+0.56%)</span>
+                    </div>
+                    <div class="ticker-item">
+                        <span class="ticker-notice-badge"><svg class="ticker-svg-icon" width="12" height="12" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>Rates Exclude 3% GST &amp; Making Charges</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Controls: Accessible Pause Button & Hallmark Badge -->
+            <div class="ticker-ctrl-box">
+                <button type="button" id="ticker-pause-toggle-btn" class="ticker-pause-toggle" aria-label="Pause gold price scrolling" title="Pause ticker animation" aria-pressed="false">
+                    <svg class="ticker-svg-icon" width="11" height="11" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                </button>
+                <div class="d-none d-xl-flex align-items-center ps-2 border-start" style="border-color:rgba(230,202,133,0.3) !important;">
+                    <span class="ticker-hallmark-badge"><svg class="ticker-svg-icon" width="11" height="11" viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>100% BIS Hallmarked</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Automatic Live Gold Price Ticker End -->
+
+    <div class="header__bottom">
+      <div class="container">
+        <nav class="navbar navbar-expand-xl p-0 align-items-center">
+          <a class="site-logo site-title" href="index.html"><img src="assets/images/logo.png" alt="Shalom Gold"></a>
+          <ul class="account-menu mobile-acc-menu">
+            <li class="icon">
+              <a href="login.html"><i class="las la-user"></i></a>
+            </li>
+          </ul> 
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="menu-toggle"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav main-menu m-auto">
+              <li> <a href="index.html">Home</a></li>
+              <li> <a href="about.html">About Us</a></li>
+              <li> <a href="plan.html">Savings Plans</a></li>
+              <li> <a href="catalog.html">Catalog</a></li>
+              <li> <a href="index.html#franchise">Franchise</a></li>
+              <li class="menu_has_children"><a href="dashboard.html" class="active">Dashboard</a>
+                <ul class="sub-menu">
+                  <li><a href="dashboard.html" class="active">Client Passbook</a></li>
+                  <li><a href="admin-leads.html"><i class="las la-user-tag mr-1 text-warning"></i> Website Leads</a></li>
+                  <li><a href="care-leads.html"><i class="las la-headset mr-1 text-success"></i> Customer Care</a></li>
+                </ul>
+              </li>
+              <li class="menu_has_children"><a href="#0">Insights</a>
+                <ul class="sub-menu">
+                  <li><a href="blog.html">Gold Market News</a></li>
+                  <li><a href="blog-details.html">Scheme Guide</a></li>
+                </ul>
+              </li>
+              <li><a href="contact.html">Contact & Stores</a></li>
+            </ul>
+            <div class="nav-right d-flex align-items-center">
+              <ul class="account-menu ml-3">
+                <li class="icon">
+                  <a href="dashboard.html" title="Client Profile"><i class="las la-user-check" style="color: #cca354;"></i></a>
+                </li>
+              </ul> 
+              <button type="button" id="shalomLogoutBtn" class="btn btn-sm ml-3" style="background: rgba(220, 53, 69, 0.15); border: 1px solid rgba(220, 53, 69, 0.4); color: #ff6b6b; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; cursor: pointer;">
+                <i class="las la-sign-out-alt mr-1"></i> Logout
+              </button>
+            </div>
+          </div> 
+        </nav>
+      </div>
+    </div><!-- header__bottom end -->
+  </header>
+  <!-- header-section end  -->
+    
+    <!-- inner hero start -->
+    <section class="inner-hero bg_img" data-background="assets/images/bg/bg-1.jpg">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6">
+            <h2 class="page-title">Client Gold Passbook</h2>
+            <ul class="page-breadcrumb">
+              <li><a href="index.html">Home</a></li>
+              <li>Dashboard</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- inner hero end -->
+
+
+    <!-- dashboard section start -->
+    <div class="pt-120 pb-120">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-12">
+            <div class="row mb-none-30">
+              <div class="col-xl-4 col-sm-6 mb-30">
+                <div class="d-widget d-flex flex-wrap">
+                  <div class="col-8">
+                    <span class="caption">Gold Savings Balance</span>
+                    <h4 class="currency-amount">₹ 1,65,000</h4>
+                  </div>
+                  <div class="col-4">
+                    <div class="icon ml-auto">
+                      <i class="las la-coins"></i>
+                    </div>
+                  </div>
+                </div><!-- d-widget-two end -->
+              </div>
+              <div class="col-xl-4 col-sm-6 mb-30">
+                <div class="d-widget d-flex flex-wrap">
+                  <div class="col-8">
+                    <span class="caption">Shalom Bonus Accrued</span>
+                    <h4 class="currency-amount">₹ 35,000</h4>
+                  </div>
+                  <div class="col-4">
+                    <div class="icon ml-auto">
+                      <i class="las la-gift"></i>
+                    </div>
+                  </div>
+                </div><!-- d-widget-two end -->
+              </div>
+              <div class="col-xl-4 col-sm-6 mb-30">
+                <div class="d-widget d-flex flex-wrap">
+                  <div class="col-8">
+                    <span class="caption">Total Gold Weight (24K)</span>
+                    <h4 class="currency-amount">25.5 Grams</h4>
+                  </div>
+                  <div class="col-4">
+                    <div class="icon ml-auto">
+                      <i class="las la-gem"></i>
+                    </div>
+                  </div>
+                </div><!-- d-widget-two end -->
+              </div>
+              <div class="col-xl-4 col-sm-6 mb-30">
+                <div class="d-widget d-flex flex-wrap">
+                  <div class="col-8">
+                    <span class="caption">Active Scheme Deposits</span>
+                    <h4 class="currency-amount">₹ 1,30,000</h4>
+                  </div>
+                  <div class="col-4">
+                    <div class="icon ml-auto">
+                      <i class="las la-credit-card"></i>
+                    </div>
+                  </div>
+                </div><!-- d-widget-two end -->
+              </div>
+              <div class="col-xl-4 col-sm-6 mb-30">
+                <div class="d-widget d-flex flex-wrap">
+                  <div class="col-8">
+                    <span class="caption">Matured Redemptions</span>
+                    <h4 class="currency-amount">10g Mint Bar</h4>
+                  </div>
+                  <div class="col-4">
+                    <div class="icon ml-auto">
+                      <i class="las la-shield-alt"></i>
+                    </div>
+                  </div>
+                </div><!-- d-widget-two end -->
+              </div>
+              <div class="col-xl-4 col-sm-6 mb-30">
+                <div class="d-widget d-flex flex-wrap">
+                  <div class="col-8">
+                    <span class="caption">Franchise & Referral Pay</span>
+                    <h4 class="currency-amount">₹ 24,500</h4>
+                  </div>
+                  <div class="col-4">
+                    <div class="icon ml-auto">
+                      <i class="las la-user-friends"></i>
+                    </div>
+                  </div>
+                </div><!-- d-widget-two end -->
+              </div>
+            </div><!-- row end -->
+            <div class="row mt-50">
+              <div class="col-lg-12">
+                <div class="table-responsive--md p-0">
+                  <table class="table style--two white-space-nowrap">
+                    <thead>
+                      <tr>
+                        <th>Date</th>
+                        <th>Passbook Txn ID</th>
+                        <th>Grams / Amount</th>
+                        <th>Scheme Account</th>
+                        <th>Transaction Details</th>
+                        <th>Post Balance</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td data-label="Date">05/11/2026</td>
+                        <td data-label="Transaction ID">
+                          <span class="base--color">SHG-2026-9812</span>
+                        </td>
+                        <td data-label="Amount">
+                          <span class="text-success">+ ₹ 10,000</span>
+                        </td>
+                        <td data-label="Wallet">
+                          <span class="badge base--bg text-dark">1 Year Smart Gold</span>
+                        </td>
+                        <td data-label="Details">Installment #10 Paid via UPI AutoPay</td>
+                        <td data-label="Post Balance">₹ 1,65,000 (~21.04g)</td>
+                      </tr>
+                      <tr>
+                        <td data-label="Date">01/11/2026</td>
+                        <td data-label="Transaction ID">
+                          <span class="base--color">SHG-2026-9740</span>
+                        </td>
+                        <td data-label="Amount">
+                          <span class="text-success">+ ₹ 4,000</span>
+                        </td>
+                        <td data-label="Wallet">
+                          <span class="badge base--bg text-dark">Hold & Grow (2%)</span>
+                        </td>
+                        <td data-label="Details">2% Monthly Cash Payout Credited to HDFC Bank</td>
+                        <td data-label="Post Balance">₹ 1,55,000</td>
+                      </tr>
+                      <tr>
+                        <td data-label="Date">15/10/2026</td>
+                        <td data-label="Transaction ID">
+                          <span class="base--color">SHG-2026-9655</span>
+                        </td>
+                        <td data-label="Amount">
+                          <span class="text-success">+ ₹ 10,000</span>
+                        </td>
+                        <td data-label="Wallet">
+                          <span class="badge base--bg text-dark">1 Year Smart Gold</span>
+                        </td>
+                        <td data-label="Details">Installment #9 Paid via UPI AutoPay</td>
+                        <td data-label="Post Balance">₹ 1,51,000</td>
+                      </tr>
+                      <tr>
+                        <td data-label="Date">01/10/2026</td>
+                        <td data-label="Transaction ID">
+                          <span class="base--color">SHG-2026-9520</span>
+                        </td>
+                        <td data-label="Amount">
+                          <span class="text-success">+ ₹ 4,000</span>
+                        </td>
+                        <td data-label="Wallet">
+                          <span class="badge base--bg text-dark">Hold & Grow (2%)</span>
+                        </td>
+                        <td data-label="Details">2% Monthly Cash Payout Credited to HDFC Bank</td>
+                        <td data-label="Post Balance">₹ 1,41,000</td>
+                      </tr>
+                      <tr>
+                        <td data-label="Date">28/09/2026</td>
+                        <td data-label="Transaction ID">
+                          <span class="base--color">SHG-2026-9488</span>
+                        </td>
+                        <td data-label="Amount">
+                          <span class="text-warning">10g 24K Mint Bar</span>
+                        </td>
+                        <td data-label="Wallet">
+                          <span class="badge base--bg text-dark">Maturity Redemption</span>
+                        </td>
+                        <td data-label="Details">Insured Transit Dispatched with Swiss CertiCard</td>
+                        <td data-label="Post Balance">Delivered</td>
+                      </tr>
+                      <tr>
+                        <td data-label="Date">15/09/2026</td>
+                        <td data-label="Transaction ID">
+                          <span class="base--color">SHG-2026-9311</span>
+                        </td>
+                        <td data-label="Amount">
+                          <span class="text-success">+ ₹ 10,000</span>
+                        </td>
+                        <td data-label="Wallet">
+                          <span class="badge base--bg text-dark">1 Year Smart Gold</span>
+                        </td>
+                        <td data-label="Details">Installment #8 Paid via NetBanking</td>
+                        <td data-label="Post Balance">₹ 1,37,000</td>
+                      </tr>
+                      <tr>
+                        <td data-label="Date">01/09/2026</td>
+                        <td data-label="Transaction ID">
+                          <span class="base--color">SHG-2026-9205</span>
+                        </td>
+                        <td data-label="Amount">
+                          <span class="text-success">+ ₹ 4,000</span>
+                        </td>
+                        <td data-label="Wallet">
+                          <span class="badge base--bg text-dark">Hold & Grow (2%)</span>
+                        </td>
+                        <td data-label="Details">2% Monthly Cash Payout Credited to HDFC Bank</td>
+                        <td data-label="Post Balance">₹ 1,27,000</td>
+                      </tr>
+                      <tr>
+                        <td data-label="Date">12/08/2026</td>
+                        <td data-label="Transaction ID">
+                          <span class="base--color">SHG-2026-9110</span>
+                        </td>
+                        <td data-label="Amount">
+                          <span class="text-success">+ ₹ 10,000</span>
+                        </td>
+                        <td data-label="Wallet">
+                          <span class="badge base--bg text-dark">Shalom Scheme Bonus</span>
+                        </td>
+                        <td data-label="Details">12th Month Full Bonus Funded by Shalom Gold</td>
+                        <td data-label="Post Balance">₹ 1,23,000</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div><!-- row end -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- dashboard section end -->
+
+    <!-- footer section start -->
+<footer class="footer bg_img" data-background="assets/images/bg/bg-7.jpg">
+  <div class="footer__top">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-12 text-center">
+          <a href="index.html" class="footer-logo"><img src="assets/images/logo.png" alt="Shalom Gold"></a>
+          <ul class="footer-short-menu d-flex flex-wrap justify-content-center mt-4">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="plan.html">Savings Plans</a></li>
+            <li><a href="catalog.html">Catalog</a></li>
+            <li><a href="index.html#franchise">Franchise</a></li>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="contact.html">Contact & Stores</a></li>
+          </ul>
+          <p class="mt-3 text-white-50 f-size-14">Helpline: <strong class="base--color">+91 88888 88888</strong> &nbsp;|&nbsp; Support: <strong class="base--color">care@shalomgold.com</strong></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 text-md-left text-center">
+          <p>© 2026 <a href="index.html" class="base--color">Shalom Gold Ltd.</a> India’s Premier Gold Savings & Franchise Network. All rights reserved.</p>
+        </div>
+        <div class="col-md-6">
+          <ul class="social-link-list d-flex flex-wrap justify-content-md-end justify-content-center">
+            <li><a href="#0" data-toggle="tooltip" data-placement="top" title="Facebook"><i class="lab la-facebook-f"></i></a></li>
+            <li><a href="#0" data-toggle="tooltip" data-placement="top" title="Twitter"><i class="lab la-twitter"></i></a></li>
+            <li><a href="#0" data-toggle="tooltip" data-placement="top" title="Instagram"><i class="lab la-instagram"></i></a></li>
+            <li><a href="#0" data-toggle="tooltip" data-placement="top" title="LinkedIn"><i class="lab la-linkedin-in"></i></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+<!-- footer section end -->
+  </div> <!-- page-wrapper end -->
+    <!-- jQuery library -->
+  <script src="assets/js/vendor/jquery-3.5.1.min.js"></script>
+  <!-- bootstrap js -->
+  <script src="assets/js/vendor/bootstrap.bundle.min.js"></script>
+  <!-- slick slider js -->
+  <script src="assets/js/vendor/slick.min.js"></script>
+  <script src="assets/js/vendor/wow.min.js"></script>
+  <script src="assets/js/contact.js"></script>
+  <!-- dashboard custom js -->
+  <script src="assets/js/app.js"></script>
+  <script src="assets/js/gold-ticker.js"></script>
+  <script src="assets/js/api-config.js"></script>
+  <script src="assets/js/visitor-lead-modal.js"></script>
+  <script src="assets/js/auth-nav.js"></script>
+</body>
+
+</html>
